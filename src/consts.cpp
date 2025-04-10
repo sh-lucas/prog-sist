@@ -1,5 +1,3 @@
-#pragma once
-
 #include <string>
 #include <unordered_map>
 
@@ -19,4 +17,8 @@ const int W = 10;
 const int R = 11;
 const int STP = 12;
 
-extern const unordered_map<string, int> instruction_map;
+extern const unordered_map<string, int> instruction_map = {
+    {"ADD", ADD}, {"SUB", SUB}, {"MUL", MUL}, {"DIV", DIV}, {"MV", MV},
+    {"ST", ST},   {"JMP", JMP}, {"JEQ", JEQ}, {"JGT", JGT}, {"JLT", JLT},
+    {"WRITE", W}, {"READ", R},  {"STP", STP},
+};

@@ -1,0 +1,8 @@
+BasedOnStyle: Linux
+IndentWidth: 2
+TabWidth: 2
+UseTab: Never
+AllowShortFunctionsOnASingleLine: All
+ColumnLimit: 80
+SortIncludes: false
+PointerAlignment: Left
