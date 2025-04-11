@@ -1,5 +1,9 @@
-#include "../hfiles/consts.h" // Include the header file where ADD is declared
+// #include "../hfiles/consts.h" // Include the header file where ADD is
+// declared
 #include "../hfiles/helpers.h" // Include the header file where str_trim is declared
+#include <cstdint>
+#include <cstdio>
+#include <cstdlib>
 #include <iostream>
 #include <string>
 
@@ -22,13 +26,13 @@ int main(int argc, char *argv[]) {
   int pc = 0;
   while (next_op(file, &inst)) {
     if (!inst.empty) {
-      int inst_code = instruction_map.at(string(inst.cmd));
 
-      fprintf(output, "%d ", inst_code);
-      fprintf(output, "%s ", inst.op1);
-      fprintf(output, "%s ", inst.op2);
-      fprintf(output, "%s", inst.op3);
-      fprintf(output, "\n");
+      int cmd = inst.cmd;
+
+      fwrite(&inst.cmd, sizeof(uint8_t), 1, output);
+      fwrite(&inst.op1, sizeof(uint8_t), 1, output);
+      fwrite(&inst.op2, sizeof(uint8_t), 1, output);
+      fwrite(&inst.op3, sizeof(uint8_t), 1, output);
     }
   }
 }

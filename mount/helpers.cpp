@@ -1,4 +1,5 @@
-#include <string.h>
+#include "../hfiles/consts.h" // Include the header file where ADD is
+#include <cstdint>
 #include <string>
 
 using namespace std;
@@ -18,15 +19,20 @@ string str_trim(string str) {
 }
 
 typedef struct {
-  char cmd[10];
-  char op1[10];
-  char op2[10];
-  char op3[10];
+  uint8_t cmd;
+  uint8_t op1;
+  uint8_t op2;
+  uint8_t op3;
   bool empty;
 } instruction;
 
 bool next_op(FILE *file, instruction *inst) {
   inst->empty = 0;
+  inst->cmd = 0;
+  inst->op1 = 0;
+  inst->op2 = 0;
+  inst->op3 = 0;
+
   char buffer[40];
   if (!fgets(buffer, 40, file))
     return 0;
@@ -57,12 +63,10 @@ bool next_op(FILE *file, instruction *inst) {
   ops[opc++] = line.substr(0, line.find('\0'));
   line = line.substr(line.find('\0') + 1);
 
-  ops[2].pop_back();
-
-  strcpy(inst->cmd, command.c_str());
-  strcpy(inst->op1, ops[0].c_str());
-  strcpy(inst->op2, ops[1].c_str());
-  strcpy(inst->op3, ops[2].c_str());
+  inst->cmd = instruction_map.at(command.c_str());
+  inst->op1 = atoi(ops[0].c_str());
+  inst->op2 = atoi(ops[1].c_str());
+  inst->op3 = atoi(ops[2].c_str());
 
   return 1;
 }

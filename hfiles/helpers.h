@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>
 #include <iostream>
 #include <string>
 
@@ -8,11 +9,11 @@ using namespace std;
 string str_trim(string str);
 
 typedef struct {
-  char cmd[10];
-  char op1[10];
-  char op2[10];
-  char op3[10];
+  uint8_t cmd;
+  uint8_t op1;
+  uint8_t op2;
+  uint8_t op3;
   bool empty;
 } instruction;
 
-bool next_op(FILE* file, instruction* inst);
+bool next_op(FILE *file, instruction *inst);
