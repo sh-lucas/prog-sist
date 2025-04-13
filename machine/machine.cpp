@@ -1,6 +1,8 @@
-#include <cstdint>
+#include "../hfiles/machine.h"
+#include "../hfiles/consts.h"
 #include <cstdio>
 #include <cstdlib>
+#include <iostream>
 
 using namespace std;
 
@@ -15,13 +17,16 @@ int main(int argc, char *argv[]) {
 
   FILE *bin = fopen(filename, "r");
 
-  uint8_t buffer;
-  int line_break_at = 4, i = 0;
-  while (fread(&buffer, sizeof(uint8_t), 1, bin)) {
-    printf("%d ", buffer);
-    if (++i == line_break_at) {
-      i = 0;
-      printf("\n");
+  machine machine = load(bin);
+  inst_b line;
+  while (line.cmd != STP) {
+    if (instruction_set[line.cmd]) {
+      instruction_set[line.cmd](&machine);
+    } else {
+      cout << "Error! Invalid command at instruction section. \nLine number: "
+           << machine.pc << endl;
+      exit(1);
     }
+    line = machine.memory[machine.pc++];
   }
 }

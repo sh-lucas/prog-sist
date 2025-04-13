@@ -7,12 +7,13 @@ using namespace std;
 string hello = "4";
 
 string str_trim(string str) {
-  if (str.back() == '\n')
+  // Remove trailing newline and carriage return characters
+  while (!str.empty() &&
+         (str.back() == '\n' || str.back() == '\r' || isspace(str.back())))
     str.pop_back();
 
-  while (str.back() == ' ')
-    str.pop_back();
-  while (str.front() == ' ')
+  // Remove leading spaces and other blank characters
+  while (!str.empty() && isspace(str.front()))
     str.erase(0, 1);
 
   return str;
@@ -34,12 +35,14 @@ bool next_op(FILE *file, instruction *inst) {
   inst->op3 = 0;
 
   char buffer[40];
-  if (!fgets(buffer, 40, file))
+  if (!fgets(buffer, 40, file)) {
+    inst->empty = true;
     return 0;
+  }
 
   string line = str_trim(string(buffer));
 
-  if (line.empty() || line.front() == ';' || line.front() == '#') {
+  if (line.empty() || line.front() == '#' || line == "") {
     // no instruction, but works
     inst->empty = 1;
     return 1;

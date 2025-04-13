@@ -1,4 +1,6 @@
 ADD 4 2 2
-; ADD 3 2
+# ADD 3 2
 SUB 4 7 2
 MV 2
+
+STP
