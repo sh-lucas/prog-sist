@@ -35,7 +35,10 @@ void ADD(machine *m) {
   uint8_t val = m->regs[1] + m->regs[2];
   m->regs[0] = val;
   m->ula_out = val;
-  printf("%" PRIu8 " + %" PRIu8 " = %" PRIu8 "\n", m->regs[1], m->regs[2], val);
+  if (debug_mode) {
+    printf("%" PRIu8 " + %" PRIu8 " = %" PRIu8 "\n", m->regs[1], m->regs[2],
+           val);
+  }
 }
 
 void SUB(machine *m) {
@@ -128,14 +131,19 @@ void R(machine *m) {
   check_reg_index(m, line.op1);
   uint8_t input;
   printf("input? ");
-  do {
-    input = getchar();
-  } while (input == '\n' || input == '\r' ||
-           input == ' '); // Skip spaces and newlines
-  m->regs[line.op1] = input;
+  // do {
+  //   input = getchar();
+  // } while (input == '\n' || input == '\r' || input == ' ');
+  // m->regs[line.op1] = input;
+  int num = 0;
+  scanf("%d", &num);
+  m->regs[line.op1] = static_cast<uint8_t>(num);
 }
 
-void STP(machine *m) { std::cout << "STP" << std::endl; }
+void STP(machine *m) {
+  if (debug_mode)
+    std::cout << "STP" << std::endl;
+}
 
 std::vector<std::function<void(machine *)>> instruction_set = {
     ADD, SUB, MUL, DIV, MV, ST, JMP, JEQ, JGT, JLT, W, R, STP};

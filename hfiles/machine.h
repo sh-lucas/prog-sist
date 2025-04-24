@@ -21,4 +21,6 @@ typedef struct machine {
 
 extern std::vector<std::function<void(machine *)>> instruction_set;
 
+extern bool debug_mode;
+
 machine load(FILE *file);
