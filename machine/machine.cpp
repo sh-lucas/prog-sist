@@ -41,13 +41,12 @@ int main(int argc, char *argv[]) {
       printf("\treg3: %" PRIu16 "\n", machine.regs[3]);
     }
 
-    if (instruction_set[line.cmd]) {
-      instruction_set[line.cmd](&machine);
-    } else {
-      cout << "Error! Invalid command at instruction section. \nLine number: "
-           << machine.pc << endl;
+    if (line.cmd > instruction_set.size()) {
+      cerr << "Unkown instruction at " << machine.pc << endl;
       exit(1);
     }
+
+    instruction_set[line.cmd](&machine);
     machine.pc++;
   }
 }
