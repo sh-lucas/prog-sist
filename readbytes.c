@@ -17,10 +17,10 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  uint8_t byte;
+  uint16_t word; // 16-bit value
   int count = 0;
-  while (fread(&byte, sizeof(uint8_t), 1, file) == 1) {
-    printf("%u\t", byte);
+  while (fread(&word, sizeof(uint16_t), 1, file) == 1) {
+    printf("%u\t", word); // Print 16-bit value as unsigned integer
     if (++count % 4 == 0)
       printf("\n");
   }

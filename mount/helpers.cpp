@@ -18,14 +18,14 @@ string str_trim(string str) {
 }
 
 typedef struct {
-  uint8_t cmd;
-  uint8_t op1;
-  uint8_t op2;
-  uint8_t op3;
+  uint16_t cmd;
+  uint16_t op1;
+  uint16_t op2;
+  uint16_t op3;
   bool empty;
 } instruction;
 
-extern const unordered_map<string, uint8_t> instruction_map;
+extern const unordered_map<string, uint16_t> instruction_map;
 
 bool next_op(FILE *file, instruction *inst) {
   inst->empty = false;
@@ -61,7 +61,7 @@ bool next_op(FILE *file, instruction *inst) {
   string token;
   int count = 0;
   while (ss >> token && count < 3) {
-    uint8_t val = atoi(token.c_str());
+    uint16_t val = atoi(token.c_str());
     if (count == 0)
       inst->op1 = val;
     else if (count == 1)

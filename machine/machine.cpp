@@ -30,15 +30,15 @@ int main(int argc, char *argv[]) {
 
     // modo debug
     if (debug_mode) {
-      printf("cmd: %" PRIu8, line.cmd);
-      printf("\top1: %" PRIu8, line.op1);
-      printf("\top2: %" PRIu8, line.op2);
-      printf("\top3: %" PRIu8, line.op3);
+      printf("cmd: %" PRIu16, line.cmd);
+      printf("\top1: %" PRIu16, line.op1);
+      printf("\top2: %" PRIu16, line.op2);
+      printf("\top3: %" PRIu16, line.op3);
 
-      printf("\t|\treg0: %" PRIu8, machine.regs[0]);
-      printf("\treg1: %" PRIu8, machine.regs[1]);
-      printf("\treg2: %" PRIu8, machine.regs[2]);
-      printf("\treg3: %" PRIu8 "\n", machine.regs[3]);
+      printf("\t|\treg0: %" PRIu16, machine.regs[0]);
+      printf("\treg1: %" PRIu16, machine.regs[1]);
+      printf("\treg2: %" PRIu16, machine.regs[2]);
+      printf("\treg3: %" PRIu16 "\n", machine.regs[3]);
     }
 
     if (instruction_set[line.cmd]) {

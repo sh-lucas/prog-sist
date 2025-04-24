@@ -27,8 +27,10 @@ machine load(FILE *file) {
 
   int stack_ptr = 0;
 
-  uint32_t buffer;
-  while (fread(&buffer, sizeof(uint32_t), 1, file)) {
+  // the struct inst_b is 64 bits long, with 4 fields of 16 bits
+  // it's needed at least 9 bits to index all of the memory positions
+  uint64_t buffer;
+  while (fread(&buffer, sizeof(uint64_t), 1, file)) {
     inst_b *inst = (inst_b *)&buffer;
 
     machine.memory[stack_ptr].cmd = inst->cmd;

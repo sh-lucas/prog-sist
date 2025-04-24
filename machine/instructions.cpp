@@ -7,37 +7,37 @@
 #include <iostream>
 #include <vector>
 
-const uint8_t reg0_code = 0;
-const uint8_t reg1_code = 0;
-const uint8_t reg2_code = 0;
-const uint8_t reg3_code = 0;
+const uint16_t reg0_code = 0;
+const uint16_t reg1_code = 0;
+const uint16_t reg2_code = 0;
+const uint16_t reg3_code = 0;
 
 void ADD(machine *m) {
-  uint8_t val = m->regs[1] + m->regs[2];
+  uint16_t val = m->regs[1] + m->regs[2];
   m->regs[0] = val;
   m->ula_out = val;
 
   if (debug_mode) {
-    printf("%" PRIu8 " + %" PRIu8 " = %" PRIu8 "\n", m->regs[1], m->regs[2],
+    printf("%" PRIu16 " + %" PRIu16 " = %" PRIu16 "\n", m->regs[1], m->regs[2],
            val);
   }
 }
 
 void SUB(machine *m) {
-  uint8_t val = m->regs[1] - m->regs[2];
+  uint16_t val = m->regs[1] - m->regs[2];
   m->regs[0] = val;
   m->ula_out = val;
 }
 
 void MUL(machine *m) {
-  uint8_t val = m->regs[1] * m->regs[2];
+  uint16_t val = m->regs[1] * m->regs[2];
   m->regs[0] = val;
   m->ula_out = val;
 }
 
 void DIV(machine *m) {
   if (m->regs[2] != 0) {
-    uint8_t val = m->regs[1] / m->regs[2];
+    uint16_t val = m->regs[1] / m->regs[2];
     m->regs[0] = val;
     m->ula_out = val;
   } else {
@@ -81,16 +81,16 @@ void JLT(machine *m) {
 
 void W(machine *m) {
   inst_b line = m->memory[m->pc];
-  printf("output: %" PRIu8 "\n", m->regs[line.op1]);
+  printf("output: %" PRIu16 "\n", m->regs[line.op1]);
 }
 
 void R(machine *m) {
   inst_b line = m->memory[m->pc];
-  uint8_t input;
+  uint16_t input;
   printf("input: ");
   int num = 0;
   scanf("%d", &num);
-  m->regs[line.op1] = static_cast<uint8_t>(num);
+  m->regs[line.op1] = static_cast<uint16_t>(num);
 }
 
 void STP(machine *m) {

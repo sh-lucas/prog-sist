@@ -27,10 +27,10 @@ int main(int argc, char *argv[]) {
     if (!inst.empty) {
       int cmd = inst.cmd;
 
-      fwrite(&inst.cmd, sizeof(uint8_t), 1, output);
-      fwrite(&inst.op1, sizeof(uint8_t), 1, output);
-      fwrite(&inst.op2, sizeof(uint8_t), 1, output);
-      fwrite(&inst.op3, sizeof(uint8_t), 1, output);
+      fwrite(&inst.cmd, sizeof(uint16_t), 1, output);
+      fwrite(&inst.op1, sizeof(uint16_t), 1, output);
+      fwrite(&inst.op2, sizeof(uint16_t), 1, output);
+      fwrite(&inst.op3, sizeof(uint16_t), 1, output);
     }
   }
 }

@@ -6,10 +6,10 @@
 #include <vector>
 
 typedef struct inst_b {
-  uint8_t cmd;
-  uint8_t op1;
-  uint8_t op2;
-  uint8_t op3;
+  uint16_t cmd;
+  uint16_t op1;
+  uint16_t op2;
+  uint16_t op3;
 } inst_b;
 
 typedef struct machine {
