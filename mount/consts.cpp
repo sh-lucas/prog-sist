@@ -21,5 +21,5 @@ const uint8_t STP = 12;
 extern const unordered_map<string, uint8_t> instruction_map = {
     {"ADD", ADD}, {"SUB", SUB}, {"MUL", MUL}, {"DIV", DIV}, {"MV", MV},
     {"ST", ST},   {"JMP", JMP}, {"JEQ", JEQ}, {"JGT", JGT}, {"JLT", JLT},
-    {"WRITE", W}, {"READ", R},  {"STP", STP},
+    {"W", W},     {"R", R},     {"STP", STP},
 };

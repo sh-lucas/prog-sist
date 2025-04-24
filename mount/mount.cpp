@@ -3,7 +3,6 @@
 #include "../hfiles/helpers.h" // Include the header file where str_trim is declared
 #include <cstdint>
 #include <cstdio>
-#include <cstdlib>
 #include <iostream>
 #include <string>
 
