@@ -26,7 +26,6 @@ int main(int argc, char *argv[]) {
   int pc = 0;
   while (next_op(file, &inst)) {
     if (!inst.empty) {
-
       int cmd = inst.cmd;
 
       fwrite(&inst.cmd, sizeof(uint8_t), 1, output);

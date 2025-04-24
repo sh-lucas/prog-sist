@@ -19,6 +19,11 @@ machine load(FILE *file) {
         0, 0, 0, 0}; // Assuming inst_b has four fields: cmd, op1, op2, op3
   }
   machine.pc = 0;
+  machine.ula_out = 0;
+  machine.regs[0] = 0;
+  machine.regs[1] = 0;
+  machine.regs[2] = 0;
+  machine.regs[3] = 0;
 
   int stack_ptr = 0;
 

@@ -15,6 +15,8 @@ typedef struct inst_b {
 typedef struct machine {
   inst_b memory[320];
   int pc;
+  int ula_out;
+  int regs[4];
 } machine;
 
 extern std::vector<std::function<void(machine *)>> instruction_set;

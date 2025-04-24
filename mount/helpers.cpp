@@ -59,7 +59,7 @@ bool next_op(FILE *file, instruction *inst) {
     ops[opc++] = line.substr(0, line.find(' '));
     line = line.substr(line.find(' ') + 1);
   }
-  if (opc == 3) {
+  if (opc > 3) {
     exit(1);
   }
   // to get the last arg (there is space in the end)
