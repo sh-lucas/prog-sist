@@ -12,22 +12,6 @@ const uint8_t reg1_code = 0;
 const uint8_t reg2_code = 0;
 const uint8_t reg3_code = 0;
 
-void check_reg_index(machine *m, uint8_t index) {
-  if (index >= 4) {
-    std::cerr << "Error: Invalid register index " << (int)index
-              << " at PC=" << m->pc << std::endl;
-    std::terminate();
-  }
-}
-
-void check_mem_index(machine *m, uint16_t index) {
-  if (index >= 320) {
-    std::cerr << "Error: Invalid memory index " << index << " at PC=" << m->pc
-              << std::endl;
-    std::terminate();
-  }
-}
-
 void ADD(machine *m) {
   uint8_t val = m->regs[1] + m->regs[2];
   m->regs[0] = val;
