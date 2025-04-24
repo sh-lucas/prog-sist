@@ -6,3 +6,4 @@ AllowShortFunctionsOnASingleLine: All
 ColumnLimit: 80
 SortIncludes: false
 PointerAlignment: Left
+BreakConstructorInitializers: AfterComma

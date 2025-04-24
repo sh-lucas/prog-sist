@@ -12,6 +12,8 @@
 # R   op1            reads cin to regs[op1];
 # STP                stops the machine;
 
+# soma dois numeros.
+
 R 1
 R 2
 ADD

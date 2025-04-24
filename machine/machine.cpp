@@ -10,6 +10,7 @@ using namespace std;
 bool debug_mode = false;
 
 int main(int argc, char *argv[]) {
+  // validação de erros
   if (argc > 3 || argc < 2) {
     printf("Argumentos inválidos. O programa aceita o caminho de um único "
            "arquivo.");
@@ -27,6 +28,7 @@ int main(int argc, char *argv[]) {
   while (line.cmd != STP) {
     line = machine.memory[machine.pc];
 
+    // modo debug
     if (debug_mode) {
       printf("cmd: %" PRIu8, line.cmd);
       printf("\top1: %" PRIu8, line.op1);

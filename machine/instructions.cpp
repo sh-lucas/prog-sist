@@ -29,12 +29,10 @@ void check_mem_index(machine *m, uint16_t index) {
 }
 
 void ADD(machine *m) {
-  check_reg_index(m, 0);
-  check_reg_index(m, 1);
-  check_reg_index(m, 2);
   uint8_t val = m->regs[1] + m->regs[2];
   m->regs[0] = val;
   m->ula_out = val;
+
   if (debug_mode) {
     printf("%" PRIu8 " + %" PRIu8 " = %" PRIu8 "\n", m->regs[1], m->regs[2],
            val);
@@ -42,27 +40,18 @@ void ADD(machine *m) {
 }
 
 void SUB(machine *m) {
-  check_reg_index(m, 0);
-  check_reg_index(m, 1);
-  check_reg_index(m, 2);
   uint8_t val = m->regs[1] - m->regs[2];
   m->regs[0] = val;
   m->ula_out = val;
 }
 
 void MUL(machine *m) {
-  check_reg_index(m, 0);
-  check_reg_index(m, 1);
-  check_reg_index(m, 2);
   uint8_t val = m->regs[1] * m->regs[2];
   m->regs[0] = val;
   m->ula_out = val;
 }
 
 void DIV(machine *m) {
-  check_reg_index(m, 0);
-  check_reg_index(m, 1);
-  check_reg_index(m, 2);
   if (m->regs[2] != 0) {
     uint8_t val = m->regs[1] / m->regs[2];
     m->regs[0] = val;
@@ -75,66 +64,46 @@ void DIV(machine *m) {
 
 void MV(machine *m) {
   inst_b line = m->memory[m->pc];
-  check_reg_index(m, line.op1);
-  check_mem_index(m, line.op2);
   memcpy(&m->regs[line.op1], &m->memory[line.op2], 4);
 }
 
 void ST(machine *m) {
   inst_b line = m->memory[m->pc];
-  check_reg_index(m, line.op1);
-  check_mem_index(m, line.op2);
   memcpy(&m->memory[line.op2], &m->regs[line.op1], 4);
 }
 
 void JMP(machine *m) {
   inst_b line = m->memory[m->pc];
-  check_mem_index(m, line.op1);
   m->pc = line.op1 - 1;
 }
 
 void JEQ(machine *m) {
   inst_b line = m->memory[m->pc];
-  check_reg_index(m, line.op1);
-  check_reg_index(m, line.op2);
-  check_mem_index(m, line.op3);
   if (m->regs[line.op1] == m->regs[line.op2])
     m->pc = line.op3 - 1;
 }
 
 void JGT(machine *m) {
   inst_b line = m->memory[m->pc];
-  check_reg_index(m, line.op1);
-  check_reg_index(m, line.op2);
-  check_mem_index(m, line.op3);
   if (m->regs[line.op1] > m->regs[line.op2])
     m->pc = line.op3 - 1;
 }
 
 void JLT(machine *m) {
   inst_b line = m->memory[m->pc];
-  check_reg_index(m, line.op1);
-  check_reg_index(m, line.op2);
-  check_mem_index(m, line.op3);
   if (m->regs[line.op1] < m->regs[line.op2])
     m->pc = line.op3 - 1;
 }
 
 void W(machine *m) {
   inst_b line = m->memory[m->pc];
-  check_reg_index(m, line.op1);
   printf("output: %" PRIu8 "\n", m->regs[line.op1]);
 }
 
 void R(machine *m) {
   inst_b line = m->memory[m->pc];
-  check_reg_index(m, line.op1);
   uint8_t input;
-  printf("input? ");
-  // do {
-  //   input = getchar();
-  // } while (input == '\n' || input == '\r' || input == ' ');
-  // m->regs[line.op1] = input;
+  printf("input: ");
   int num = 0;
   scanf("%d", &num);
   m->regs[line.op1] = static_cast<uint8_t>(num);
@@ -145,5 +114,19 @@ void STP(machine *m) {
     std::cout << "STP" << std::endl;
 }
 
+// clang-format off
 std::vector<std::function<void(machine *)>> instruction_set = {
-    ADD, SUB, MUL, DIV, MV, ST, JMP, JEQ, JGT, JLT, W, R, STP};
+  ADD,
+  SUB,
+  MUL,
+  DIV,
+  MV,
+  ST,
+  JMP,
+  JEQ,
+  JGT,
+  JLT,
+  W,
+  R,
+  STP,
+};
