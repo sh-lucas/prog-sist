@@ -81,7 +81,8 @@ void JLT(machine *m) {
 
 void W(machine *m) {
   inst_b line = m->memory[m->pc];
-  printf("output: %" PRIu16 "\n", m->regs[line.op1]);
+  int *cvrt = (int *)&m->memory[line.op1];
+  printf("output: %u\n", *cvrt);
 }
 
 void R(machine *m) {
@@ -90,7 +91,8 @@ void R(machine *m) {
   printf("input: ");
   int num = 0;
   scanf("%d", &num);
-  m->regs[line.op1] = static_cast<uint16_t>(num);
+  inst_b *cvrt = (inst_b *)&num;
+  m->memory[line.op1] = *cvrt;
 }
 
 void STP(machine *m) {
@@ -98,6 +100,7 @@ void STP(machine *m) {
     std::cout << "STP" << std::endl;
 }
 
+// é um mapa que associa o índice à função da instrução
 // clang-format off
 std::vector<std::function<void(machine *)>> instruction_set = {
   ADD,

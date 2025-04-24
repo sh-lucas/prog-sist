@@ -14,7 +14,7 @@ void printBinaryLine(inst_b *buffer) {
 
 machine load(FILE *file) {
   machine machine = {0};
-  for (int i = 0; i < 320; i++) {
+  for (int i = 0; i < MEM_SIZE; i++) {
     machine.memory[i] = {
         0, 0, 0, 0}; // Assuming inst_b has four fields: cmd, op1, op2, op3
   }

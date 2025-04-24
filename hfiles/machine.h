@@ -12,8 +12,10 @@ typedef struct inst_b {
   uint16_t op3;
 } inst_b;
 
+const int MEM_SIZE = 320;
+
 typedef struct machine {
-  inst_b memory[320];
+  inst_b memory[MEM_SIZE];
   int pc;
   int ula_out;
   int regs[4];

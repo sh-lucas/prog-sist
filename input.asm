@@ -8,14 +8,17 @@
 # JEQ op1 op2 op3    op1 == op2 --> pc = op3;
 # JGT op1 op2 op3    op1 > op2  --> pc = op3;
 # JLT op1 op2 op3    op1 < op2  --> pc = op3;
-# W   op1            prints regs[op1] to cout;
-# R   op1            reads cin to regs[op1];
+# W   op1            prints mem[op1] to cout;
+# R   op1            reads cin to mem[op1];
 # STP                stops the machine;
 
 # soma dois numeros.
 
-R 1
-R 2
+R 319
+MV 1 319
+R 318
+MV 2 318
 ADD
+ST 0 0
 W 0
 STP

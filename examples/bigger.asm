@@ -1,7 +1,0 @@
-R 1
-R 2
-JGT 1 2 5
-W 2
-STP
-W 1
-STP
