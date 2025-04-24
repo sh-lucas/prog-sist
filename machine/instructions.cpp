@@ -81,8 +81,8 @@ void JLT(machine *m) {
 
 void W(machine *m) {
   inst_b line = m->memory[m->pc];
-  int *cvrt = (int *)&m->memory[line.op1];
-  printf("output: %u\n", *cvrt);
+  ulong *cvrt = (ulong *)&m->memory[line.op1];
+  printf("output: %lu\n", *cvrt);
 }
 
 void R(machine *m) {
