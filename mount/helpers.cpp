@@ -2,7 +2,10 @@
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
-#include <sstream>
+// #include <sstream>
+#include <cstdlib>
+// #include <iostream>
+#include <cstring>
 #include <string>
 #include <unordered_map>
 
@@ -25,7 +28,24 @@ typedef struct {
   bool empty;
 } instruction;
 
-extern const unordered_map<string, uint16_t> instruction_map;
+extern unordered_map<string, uint16_t> symbol_map;
+
+uint8_t getCodeFromSymbol(string command) {
+  if (command.empty()) {
+    return 0;
+  }
+
+  uint8_t cmd = 0;
+  // if it's present in the symbols table
+  if (symbol_map.count(command)) {
+    cmd = symbol_map[command];
+  } else {
+    // might crash
+    cmd = atoi(command.c_str());
+  }
+
+  return cmd;
+}
 
 bool next_op(FILE *file, instruction *inst) {
   inst->empty = false;
@@ -46,30 +66,36 @@ bool next_op(FILE *file, instruction *inst) {
     return true;
   }
 
-  stringstream ss(line);
-  string command;
-  ss >> command;
+  const char *lineStr = line.c_str();
 
-  auto it = instruction_map.find(command);
-  if (it == instruction_map.end()) {
-    inst->empty = true;
-    return true;
-  }
+  // Use a temporary copy to tokenize
+  char temp[100];
+  strncpy(temp, lineStr, sizeof(temp));
+  temp[sizeof(temp) - 1] = '\0'; // ensure null-termination
 
-  inst->cmd = it->second;
+  // split into 4 different variables
+  char word1[100], word2[100], word3[100], word4[100];
+  word1[0] = word2[0] = word3[0] = word4[0] = '\0';
 
-  string token;
-  int count = 0;
-  while (ss >> token && count < 3) {
-    uint16_t val = atoi(token.c_str());
-    if (count == 0)
-      inst->op1 = val;
-    else if (count == 1)
-      inst->op2 = val;
-    else if (count == 2)
-      inst->op3 = val;
-    count++;
-  }
+  char *token = strtok(temp, " ");
+  if (token)
+    strncpy(word1, token, 100);
+  token = strtok(nullptr, " ");
+  if (token)
+    strncpy(word2, token, 100);
+  token = strtok(nullptr, " ");
+  if (token)
+    strncpy(word3, token, 100);
+  token = strtok(nullptr, " ");
+  if (token)
+    strncpy(word4, token, 100);
+
+  // assign the variables to the instruction.
+  // the function also uses atoi or returns 0 if nothing is present.
+  inst->cmd = getCodeFromSymbol(word1);
+  inst->op1 = getCodeFromSymbol(word2);
+  inst->op2 = getCodeFromSymbol(word3);
+  inst->op3 = getCodeFromSymbol(word4);
 
   // valores que não foram lidos permanecem zero
   return true;

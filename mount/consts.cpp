@@ -18,8 +18,24 @@ const uint16_t W = 10;
 const uint16_t R = 11;
 const uint16_t STP = 12;
 
-extern const unordered_map<string, uint16_t> instruction_map = {
-    {"ADD", ADD}, {"SUB", SUB}, {"MUL", MUL}, {"DIV", DIV}, {"MV", MV},
-    {"ST", ST},   {"JMP", JMP}, {"JEQ", JEQ}, {"JGT", JGT}, {"JLT", JLT},
-    {"W", W},     {"R", R},     {"STP", STP},
+extern const unordered_map<string, uint16_t> symbol_map = {
+    // basic instructions; see machine/instructions.cpp
+    {"ADD", ADD},
+    {"SUB", SUB},
+    {"MUL", MUL},
+    {"DIV", DIV},
+    {"MV", MV},
+    {"ST", ST},
+    {"JMP", JMP},
+    {"JEQ", JEQ},
+    {"JGT", JGT},
+    {"JLT", JLT},
+    {"W", W},
+    {"R", R},
+    {"STP", STP},
+    // registers set as symbols for resolution
+    {"R0", 0},
+    {"R1", 1},
+    {"R2", 2},
+    {"R3", 3},
 };
