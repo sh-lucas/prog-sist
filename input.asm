@@ -15,9 +15,9 @@
 # soma dois numeros.
 
 R 319
-MV 1 319
+MV r1 319
 R 318
-MV 2 318
+MV r2 318
 ADD
 ST 0 0
 W 0

@@ -34,8 +34,8 @@ extern const unordered_map<string, uint16_t> symbol_map = {
     {"R", R},
     {"STP", STP},
     // registers set as symbols for resolution
-    {"R0", 0},
-    {"R1", 1},
-    {"R2", 2},
-    {"R3", 3},
+    {"r0", 0},
+    {"r1", 1},
+    {"r2", 2},
+    {"r3", 3},
 };
