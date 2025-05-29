@@ -38,14 +38,13 @@ uint16_t getCodeFromSymbol(string command) {
   }
 
   uint16_t cmd = 0;
-  // if it's present in the symbols table
+  // varible or reserved word?
   if (symbol_map.count(command)) {
     cmd = symbol_map[command];
   } else {
     cmd = atoi(command.c_str());
+    // if it's not a number, declare a new variable
     if (cmd == 0 && command != "0") {
-      // if the command is not a number and not in the symbols table
-      // we assume it's a variable and return the heap pointer
       cmd = heapPointer--;
       symbol_map[command] = cmd; // add to the symbols table for later use
     }
