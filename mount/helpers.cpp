@@ -30,18 +30,25 @@ typedef struct {
 
 extern unordered_map<string, uint16_t> symbol_map;
 
-uint8_t getCodeFromSymbol(string command) {
+// the "heap" is compile-time only, and defines variables
+int heapPointer = 319;
+uint16_t getCodeFromSymbol(string command) {
   if (command.empty()) {
     return 0;
   }
 
-  uint8_t cmd = 0;
+  uint16_t cmd = 0;
   // if it's present in the symbols table
   if (symbol_map.count(command)) {
     cmd = symbol_map[command];
   } else {
-    // might crash
     cmd = atoi(command.c_str());
+    if (cmd == 0 && command != "0") {
+      // if the command is not a number and not in the symbols table
+      // we assume it's a variable and return the heap pointer
+      cmd = heapPointer--;
+      symbol_map[command] = cmd; // add to the symbols table for later use
+    }
   }
 
   return cmd;

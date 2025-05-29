@@ -14,10 +14,10 @@
 
 # soma dois numeros.
 
-R 319
-MV r1 319
-R 318
-MV r2 318
+R num1
+MV r1 num1
+R num2
+MV r2 num2
 ADD
 ST 0 0
 W 0
