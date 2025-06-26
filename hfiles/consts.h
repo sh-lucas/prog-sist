@@ -19,5 +19,6 @@ const uint16_t JLT = 9;
 const uint16_t W = 10;
 const uint16_t R = 11;
 const uint16_t STP = 12;
+const uint16_t MVI = 13;
 
 extern unordered_map<string, uint16_t> symbol_map;

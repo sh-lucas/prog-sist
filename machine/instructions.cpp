@@ -81,23 +81,33 @@ void JLT(machine *m) {
 
 void W(machine *m) {
   inst_b line = m->memory[m->pc];
-  ulong *cvrt = (ulong *)&m->memory[line.op1];
-  printf("output: %lu\n", *cvrt);
+  // Pega a "célula" de memória no endereço op1
+  inst_b data_cell = m->memory[line.op1];
+  // Imprime apenas o primeiro campo, que é onde guardamos o número
+  printf("output: %" PRIu16 "\n", data_cell.cmd);
 }
 
 void R(machine *m) {
   inst_b line = m->memory[m->pc];
-  uint16_t input;
+  uint16_t input_val; // Usamos um uint16_t para guardar o valor
   printf("input: ");
-  int num = 0;
-  scanf("%d", &num);
-  inst_b *cvrt = (inst_b *)&num;
-  m->memory[line.op1] = *cvrt;
+  scanf("%" SCNu16, &input_val); // Lemos como um uint16_t
+
+  // Escrevemos o valor lido no primeiro campo da célula de memória
+  // Os outros campos (op1, op2, op3) ficarão com lixo, mas não os usamos.
+  m->memory[line.op1].cmd = input_val;
 }
 
 void STP(machine *m) {
   if (debug_mode)
     std::cout << "STP" << std::endl;
+  exit(0);
+}
+
+void MVI(machine *m) {
+  inst_b line = m->memory[m->pc];
+  // Simplesmente copia o valor do operando 2 para o registrador op1
+  m->regs[line.op1] = line.op2;
 }
 
 // é um mapa que associa o índice à função da instrução
@@ -116,4 +126,5 @@ std::vector<std::function<void(machine *)>> instruction_set = {
   W,
   R,
   STP,
+  MVI,
 };

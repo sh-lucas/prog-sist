@@ -12,13 +12,18 @@
 # R   op1            reads cin to mem[op1];
 # STP                stops the machine;
 
-# soma dois numeros.
+# loop até que input > 10:
+LOOP:
+  R num1          # le input
+  MV r1 num1      # move input para r1
+  W num1          # printa input
+  MVI r2 10       # move 10 para r2
+  JGT r1 r2 END   # se r1 > r2, pula para END
+  JMP LOOP        # volta para LOOP
+  STP
 
-R num1
-MV r1 num1
-R num2
-MV r2 num2
-ADD
-ST 0 0
-W 0
-STP
+END:
+  STP
+
+# seção de dados:
+num1:
